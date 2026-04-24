@@ -194,6 +194,22 @@
 <script>
   // ══════════════════════════════════════════════════════
   // 🔥 PEGA AQUÍ TU CONFIG DE FIREBASE (igual en index.html)
+  import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAm3EH_TbBuJRleiiummUEF7Qp3jCqT4fo",
+  authDomain: "rifa-boyaca.firebaseapp.com",
+  projectId: "rifa-boyaca",
+  storageBucket: "rifa-boyaca.firebasestorage.app",
+  messagingSenderId: "203593414165",
+  appId: "1:203593414165:web:1112d7b74a6876cec5001c"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
   // ══════════════════════════════════════════════════════
   const firebaseConfig = {
     apiKey:            "TU_API_KEY",
