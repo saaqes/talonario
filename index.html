@@ -411,7 +411,7 @@
   <header>
     <div class="orbit-ring"></div>
     <div class="orbit-ring-2"></div>
-    <div class="badge-space">🚀 Lotería de Boyacá · Oficial 2025</div>
+    <div class="badge-space">🚀 Lotería de Boyacá · Oficial 2026</div>
     <h1>Gran Rifa</h1>
     <div class="subtitulo">Premio mayor · <span>Sábado 20 de junio</span></div>
   </header>
@@ -427,7 +427,7 @@
     </div>
     <div class="info-card">
       <div class="label">📅 Fecha Sorteo</div>
-      <div class="value">20 Jun 2025</div>
+      <div class="value">20 Jun 2026</div>
     </div>
   </div>
 
@@ -442,7 +442,7 @@
     <div id="grid"></div>
   </div>
 
-  <footer>© 2026 Gran Rifa · Lotería de Boyacá · Todos los derechos reservados · </footer>
+  <footer>© 2026 Gran Rifa · Lotería de Boyacá · Todos los derechos reservados · 🌌</footer>
 </div>
 
 <!-- Modal: ingresar datos -->
@@ -713,27 +713,84 @@
     ctx.strokeStyle='rgba(0,229,255,.2)'; ctx.lineWidth=1;
     ctx.beginPath(); ctx.moveTo(mx+165,165); ctx.lineTo(mx+165,H-18); ctx.stroke();
 
-    // Info derecha
+    // Info derecha — columna izquierda y derecha
     const rx = mx + 185; ctx.textAlign='left';
-    function campo(lbl,val,y){
-      ctx.fillStyle='rgba(0,229,255,.5)'; ctx.font='500 9px Orbitron, sans-serif';
+
+    function campo(lbl, val, y){
+      // Etiqueta pequeña con fondo pill
+      ctx.fillStyle='rgba(0,229,255,.22)';
+      ctx.beginPath();
+      ctx.roundRect(rx-4, y-11, 130, 15, 4);
+      ctx.fill();
+      ctx.fillStyle='rgba(0,229,255,.9)';
+      ctx.font='bold 9px Arial, sans-serif';
       ctx.fillText(lbl, rx, y);
-      ctx.fillStyle='rgba(255,255,255,.9)'; ctx.font='600 16px Exo 2, sans-serif';
-      ctx.fillText(val, rx, y+19);
+
+      // Valor grande y legible en Arial
+      ctx.fillStyle='#ffffff';
+      ctx.font='bold 17px Arial, sans-serif';
+      ctx.fillText(val, rx, y+20);
     }
-    campo('PARTICIPANTE', nombre,            170);
-    campo('TELÉFONO',     tel,               218);
-    campo('FECHA SORTEO', 'Sáb 20 Jun 2025', 266);
-    campo('PREMIO MAYOR', '$5.000.000',      314);
-    campo('VALOR BOLETA', '$100.000',        362);
+
+    // Dos columnas para aprovechar espacio
+    const col2 = rx + 330;
+
+    // Col izquierda
+    campo('PARTICIPANTE', nombre,            172);
+    campo('TELÉFONO',     tel,               224);
+    campo('FECHA SORTEO', 'Sáb 20 Jun 2026', 276);
+
+    // Col derecha
+    function campo2(lbl, val, y){
+      ctx.fillStyle='rgba(255,215,0,.2)';
+      ctx.beginPath();
+      ctx.roundRect(col2-4, y-11, 110, 15, 4);
+      ctx.fill();
+      ctx.fillStyle='rgba(255,215,0,.9)';
+      ctx.font='bold 9px Arial, sans-serif';
+      ctx.fillText(lbl, col2, y);
+      ctx.fillStyle='#ffffff';
+      ctx.font='bold 17px Arial, sans-serif';
+      ctx.fillText(val, col2, y+20);
+    }
+    campo2('PREMIO MAYOR', '$5.000.000', 172);
+    campo2('VALOR BOLETA', '$100.000',   224);
+
+    // ── MARCA: Constructora Paiting ──
+    // Fondo pill para la marca
+    ctx.fillStyle='rgba(124,77,255,.25)';
+    ctx.beginPath();
+    ctx.roundRect(rx-4, 292, W - rx - mx - 16, 56, 8);
+    ctx.fill();
+    ctx.strokeStyle='rgba(124,77,255,.4)'; ctx.lineWidth=1;
+    ctx.stroke();
+
+    // Icono edificio
+    ctx.fillStyle='rgba(124,77,255,.8)'; ctx.font='18px serif'; ctx.textAlign='left';
+    ctx.fillText('🏗️', rx+6, 322);
+
+    ctx.textAlign='left';
+    ctx.fillStyle='rgba(255,255,255,.45)';
+    ctx.font='bold 8px Arial, sans-serif';
+    ctx.fillText('RESPONSABLE', rx+32, 308);
+
+    ctx.fillStyle='#ffffff';
+    ctx.font='bold 15px Arial, sans-serif';
+    ctx.fillText('Constructora Paiting', rx+32, 324);
+
+    ctx.fillStyle='rgba(0,229,255,.7)';
+    ctx.font='bold 13px Arial, sans-serif';
+    ctx.fillText('📞 313 635 4180', rx+32, 340);
 
     // Boleta número arriba derecha
-    ctx.fillStyle='rgba(255,215,0,.7)'; ctx.font='600 11px Orbitron, sans-serif'; ctx.textAlign='right';
-    ctx.fillText('BOLETA N° ' + num + ' · $100.000', W-18, 42);
+    ctx.fillStyle='rgba(255,215,0,.85)';
+    ctx.font='bold 12px Arial, sans-serif';
+    ctx.textAlign='right';
+    ctx.fillText('BOLETA N° ' + num + '  ·  $100.000', W-18, 42);
 
-    // Pequeñas estrellas de acento
-    ctx.fillStyle='rgba(255,215,0,.4)'; ctx.font='16px serif'; ctx.textAlign='right';
-    ctx.fillText('★ ✦ ★', W-18, H-18);
+    // Estrellas decorativas
+    ctx.fillStyle='rgba(255,215,0,.4)'; ctx.font='16px serif';
+    ctx.fillText('★ ✦ ★', W-18, H-14);
 
     return c.toDataURL('image/png');
   }
