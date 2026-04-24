@@ -759,84 +759,82 @@
     ctx.strokeStyle='rgba(0,229,255,.2)'; ctx.lineWidth=1;
     ctx.beginPath(); ctx.moveTo(mx+165,165); ctx.lineTo(mx+165,H-18); ctx.stroke();
 
-    // Info derecha — columna izquierda y derecha
+    // Info derecha — dos columnas compactas
     const rx = mx + 185; ctx.textAlign='left';
 
-    function campo(lbl, val, y){
-      // Etiqueta pequeña con fondo pill
+    function campo(lbl, val, x, y){
       ctx.fillStyle='rgba(0,229,255,.22)';
-      ctx.beginPath();
-      ctx.roundRect(rx-4, y-11, 130, 15, 4);
-      ctx.fill();
+      ctx.beginPath(); ctx.roundRect(x-4, y-11, 150, 14, 3); ctx.fill();
       ctx.fillStyle='rgba(0,229,255,.9)';
-      ctx.font='bold 9px Arial, sans-serif';
-      ctx.fillText(lbl, rx, y);
-
-      // Valor grande y legible en Arial
+      ctx.font='bold 8px Arial, sans-serif';
+      ctx.fillText(lbl, x, y);
       ctx.fillStyle='#ffffff';
-      ctx.font='bold 17px Arial, sans-serif';
-      ctx.fillText(val, rx, y+20);
+      ctx.font='bold 16px Arial, sans-serif';
+      ctx.fillText(val, x, y+18);
     }
 
-    // Dos columnas para aprovechar espacio
-    const col2 = rx + 330;
+    const col1 = rx;
+    const col2 = rx + 310;
 
-    // Col izquierda
-    campo('PARTICIPANTE', nombre,            172);
-    campo('TELÉFONO',     tel,               224);
-    campo('FECHA SORTEO', 'Sáb 20 Jun 2026', 276);
+    // Columna izquierda
+    campo('PARTICIPANTE', nombre,            col1, 178);
+    campo('TELEFONO',     tel,               col1, 228);
+    campo('FECHA SORTEO', 'Sab 20 Jun 2026', col1, 278);
 
-    // Col derecha
-    function campo2(lbl, val, y){
-      ctx.fillStyle='rgba(255,215,0,.2)';
-      ctx.beginPath();
-      ctx.roundRect(col2-4, y-11, 110, 15, 4);
-      ctx.fill();
-      ctx.fillStyle='rgba(255,215,0,.9)';
-      ctx.font='bold 9px Arial, sans-serif';
-      ctx.fillText(lbl, col2, y);
-      ctx.fillStyle='#ffffff';
-      ctx.font='bold 17px Arial, sans-serif';
-      ctx.fillText(val, col2, y+20);
-    }
-    campo2('PREMIO MAYOR', '$5.000.000', 172);
-    campo2('VALOR BOLETA', '$100.000',   224);
+    // Columna derecha
+    campo('PREMIO MAYOR', '$5.000.000', col2, 178);
+    campo('VALOR BOLETA', '$100.000',   col2, 228);
 
-    // ── MARCA: Constructora Paiting ──
-    // Fondo pill para la marca
-    ctx.fillStyle='rgba(124,77,255,.25)';
-    ctx.beginPath();
-    ctx.roundRect(rx-4, 292, W - rx - mx - 16, 56, 8);
-    ctx.fill();
-    ctx.strokeStyle='rgba(124,77,255,.4)'; ctx.lineWidth=1;
-    ctx.stroke();
+    // ── FRANJA INFERIOR: RESPONSABLE ──
+    // Línea separadora
+    ctx.strokeStyle='rgba(124,77,255,.35)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(mx, 316); ctx.lineTo(W-18, 316); ctx.stroke();
 
-    // Icono edificio
-    ctx.fillStyle='rgba(124,77,255,.8)'; ctx.font='18px serif'; ctx.textAlign='left';
-    ctx.fillText('🏗️', rx+6, 322);
+    // Fondo franja responsable
+    const respGrad = ctx.createLinearGradient(mx, 320, W, 320);
+    respGrad.addColorStop(0,'rgba(74,20,140,.35)');
+    respGrad.addColorStop(.5,'rgba(124,77,255,.2)');
+    respGrad.addColorStop(1,'rgba(0,229,255,.1)');
+    ctx.fillStyle = respGrad;
+    ctx.beginPath(); ctx.roundRect(mx, 320, W - mx - 18, 78, 8); ctx.fill();
+    ctx.strokeStyle='rgba(124,77,255,.3)'; ctx.lineWidth=1; ctx.stroke();
 
+    // Línea izquierda de acento
+    ctx.fillStyle='rgba(124,77,255,.8)';
+    ctx.fillRect(mx, 320, 3, 78);
+
+    // Texto RESPONSABLE label
     ctx.textAlign='left';
-    ctx.fillStyle='rgba(255,255,255,.45)';
+    ctx.fillStyle='rgba(0,229,255,.6)';
     ctx.font='bold 8px Arial, sans-serif';
-    ctx.fillText('RESPONSABLE', rx+32, 308);
+    ctx.letterSpacing='3px';
+    ctx.fillText('R E S P O N S A B L E', mx+16, 338);
 
+    // Separador punteado
+    ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=1; ctx.setLineDash([3,4]);
+    ctx.beginPath(); ctx.moveTo(mx+16, 344); ctx.lineTo(W-30, 344); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Nombre empresa grande
     ctx.fillStyle='#ffffff';
-    ctx.font='bold 15px Arial, sans-serif';
-    ctx.fillText('Constructora Paiting', rx+32, 324);
+    ctx.font='bold 20px Arial, sans-serif';
+    ctx.fillText('Constructora Paiting', mx+16, 367);
 
-    ctx.fillStyle='rgba(0,229,255,.7)';
+    // Teléfono
+    ctx.fillStyle='rgba(0,229,255,.85)';
     ctx.font='bold 13px Arial, sans-serif';
-    ctx.fillText('📞 313 635 4180', rx+32, 340);
+    ctx.fillText('313  635  4180', mx+16, 388);
+
+    // Línea decorativa derecha en la franja
+    ctx.fillStyle='rgba(255,215,0,.15)';
+    ctx.font='22px serif'; ctx.textAlign='right';
+    ctx.fillText('✦  ★  ✦', W-22, 372);
 
     // Boleta número arriba derecha
     ctx.fillStyle='rgba(255,215,0,.85)';
     ctx.font='bold 12px Arial, sans-serif';
     ctx.textAlign='right';
     ctx.fillText('BOLETA N° ' + num + '  ·  $100.000', W-18, 42);
-
-    // Estrellas decorativas
-    ctx.fillStyle='rgba(255,215,0,.4)'; ctx.font='16px serif';
-    ctx.fillText('★ ✦ ★', W-18, H-14);
 
     return c.toDataURL('image/png');
   }
